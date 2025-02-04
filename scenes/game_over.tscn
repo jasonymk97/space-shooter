@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=3 uid="uid://haxc6loqin67"]
+
+[ext_resource type="FontFile" uid="uid://bogns2hij20j2" path="res://audio/kenvector_future.ttf" id="1_74bxm"]
+[ext_resource type="Script" path="res://scenes/game_over.gd" id="1_yssdl"]
+[ext_resource type="PackedScene" uid="uid://b56mlljapv02" path="res://scenes/level.tscn" id="2_kfnp8"]
+[ext_resource type="AudioStream" uid="uid://6qdfhq08nnq1" path="res://audio/sfx_zap.ogg" id="4_t5dvr"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yssdl")
+level_scene = ExtResource("2_kfnp8")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.227451, 0.180392, 0.247059, 1)
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_74bxm")
+theme_override_font_sizes/font_size = 60
+text = "Game Over"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_74bxm")
+theme_override_font_sizes/font_size = 25
+text = "Score:"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -95.5
+offset_top = -40.0
+offset_right = 95.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_74bxm")
+theme_override_font_sizes/font_size = 20
+text = "Pass space to start again"
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_t5dvr")
+autoplay = true

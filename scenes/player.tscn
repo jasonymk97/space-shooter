@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dj0aacs5px2dc"]
+
+[ext_resource type="Texture2D" uid="uid://bnrhpgg5wf1dy" path="res://graphics/playerShip1_orange.png" id="1_danx2"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_kdrj7"]
+[ext_resource type="AudioStream" uid="uid://cy8d3x88uaghh" path="res://audio/sfx_laser1.ogg" id="3_caqnx"]
+[ext_resource type="AudioStream" uid="uid://bge2eeghvv7t2" path="res://audio/sfx_lose.ogg" id="4_8do1r"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cj0qm"]
+particle_flag_disable_z = true
+gravity = Vector3(100, 0, 0)
+scale_max = 8.04
+color = Color(0.966982, 0.373229, 0.409242, 1)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 6
+script = ExtResource("1_kdrj7")
+
+[node name="PlayerImage" type="Sprite2D" parent="."]
+position = Vector2(-2, 1)
+texture = ExtResource("1_danx2")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-10, -35, 7, -35, 11, -9, 35, 5, 45, -7, 45, 25, 16, 30, 4, 40, -13, 40, -13, 40, -20, 27, -45, 25, -52, -6, -37, 4, -15, -10)
+
+[node name="LaserStartPos" type="Marker2D" parent="."]
+position = Vector2(1, -53)
+gizmo_extents = 237.2
+
+[node name="LaserTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="LaserSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_caqnx")
+
+[node name="DamageSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_8do1r")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-1, 40)
+process_material = SubResource("ParticleProcessMaterial_cj0qm")
+lifetime = 0.4
+
+[connection signal="timeout" from="LaserTimer" to="." method="_on_laser_timer_timeout"]
